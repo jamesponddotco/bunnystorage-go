@@ -1,0 +1,61 @@
+package bunnystorage_test
+
+import (
+	"testing"
+
+	"git.sr.ht/~jamesponddotco/bunnystorage-go"
+)
+
+func TestEndpoint_String(t *testing.T) {
+	t.Parallel()
+
+	tests := []struct {
+		name     string
+		endpoint bunnystorage.Endpoint
+		expected string
+	}{
+		{
+			name:     "Falkenstein",
+			endpoint: bunnystorage.EndpointFalkenstein,
+			expected: "storage.bunnycdn.com",
+		},
+		{
+			name:     "New York",
+			endpoint: bunnystorage.EndpointNewYork,
+			expected: "ny.storage.bunnycdn.com",
+		},
+		{
+			name:     "Los Angeles",
+			endpoint: bunnystorage.EndpointLosAngeles,
+			expected: "la.storage.bunnycdn.com",
+		},
+		{
+			name:     "Singapore",
+			endpoint: bunnystorage.EndpointSingapore,
+			expected: "sg.storage.bunnycdn.com",
+		},
+		{
+			name:     "Sydney",
+			endpoint: bunnystorage.EndpointSydney,
+			expected: "syd.storage.bunnycdn.com",
+		},
+		{
+			name:     "Unknown",
+			endpoint: bunnystorage.Endpoint(-1),
+			expected: "storage.bunnycdn.com",
+		},
+	}
+
+	for _, tt := range tests {
+		tt := tt
+
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+
+			result := tt.endpoint.String()
+			if result != tt.expected {
+				t.Errorf("Expected endpoint '%s', got '%s'", tt.expected, result)
+			}
+		})
+	}
+}
