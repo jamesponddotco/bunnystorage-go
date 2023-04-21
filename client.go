@@ -58,6 +58,10 @@ func NewClient(cfg *Config) (*Client, error) {
 
 // do performs an HTTP request using the underlying HTTP client.
 func (c *Client) do(ctx context.Context, req *httpx.Request) (*Response, error) {
+	if c.cfg.Debug {
+		log.Printf("request: %s %s", req.Req.Method, req.Req.URL)
+	}
+
 	ret, err := c.httpc.Do(ctx, req)
 	if err != nil {
 		return nil, fmt.Errorf("%w", err)
