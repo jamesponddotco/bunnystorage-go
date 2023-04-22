@@ -40,11 +40,11 @@ func NewClient(cfg *Config) (*Client, error) {
 		return nil, ErrConfigRequired
 	}
 
+	cfg.init()
+
 	if err := cfg.validate(); err != nil {
 		return nil, err
 	}
-
-	cfg.init()
 
 	return &Client{
 		httpc: &httpx.Client{
