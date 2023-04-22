@@ -29,3 +29,13 @@ func (e Endpoint) String() string {
 		return "https://storage.bunnycdn.com"
 	}
 }
+
+// IsValid returns true if the endpoint is a valid Bunny.net endpoint.
+func (e Endpoint) IsValid() bool {
+	switch e {
+	case EndpointFalkenstein, EndpointNewYork, EndpointLosAngeles, EndpointSingapore, EndpointSydney:
+		return true
+	default:
+		return false
+	}
+}

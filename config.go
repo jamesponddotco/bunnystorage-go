@@ -2,7 +2,6 @@ package bunnystorage
 
 import (
 	"fmt"
-	"net/url"
 	"sync"
 	"time"
 
@@ -219,10 +218,8 @@ func (c *Config) validate() error {
 		return ErrEndpointRequired
 	}
 
-	endpoint := "https://" + c.Endpoint.String()
-
-	if _, err := url.Parse(endpoint); err != nil {
-		return fmt.Errorf("%w %s: %w", ErrInvalidEndpoint, endpoint, err)
+	if !c.Endpoint.IsValid() {
+		return fmt.Errorf("%w: %d", ErrInvalidEndpoint, c.Endpoint)
 	}
 
 	return nil
