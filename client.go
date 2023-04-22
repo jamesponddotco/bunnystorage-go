@@ -213,6 +213,10 @@ func (c *Client) do(ctx context.Context, req *httpx.Request) (*Response, error) 
 
 // request is a convenience function for creating an HTTP request.
 func (c *Client) request(ctx context.Context, method, uri string, headers map[string]string, body io.Reader) (*httpx.Request, error) {
+	if _, ok := headers["User-Agent"]; !ok {
+		headers["User-Agent"] = c.cfg.Application.UserAgent().String()
+	}
+
 	req, err := httpx.NewRequest(ctx, method, uri, headers, body)
 	if err != nil {
 		return nil, fmt.Errorf("%w", err)
