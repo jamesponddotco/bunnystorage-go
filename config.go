@@ -3,6 +3,7 @@ package bunnystorage
 import (
 	"fmt"
 	"net/url"
+	"sync"
 	"time"
 
 	"git.sr.ht/~jamesponddotco/bunnystorage-go/internal/build"
@@ -160,6 +161,9 @@ type Config struct {
 	//
 	// This field is optional.
 	Debug bool
+
+	// mu protects Config initialization.
+	mu sync.Mutex
 }
 
 // AccessKey returns the API key to use for the given operation.
@@ -177,6 +181,9 @@ func (c *Config) AccessKey(op Operation) string {
 
 // init initializes missing Config fields with their default values.
 func (c *Config) init() {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+
 	if c.MaxRetries < 1 {
 		c.MaxRetries = DefaultMaxRetries
 	}
@@ -187,7 +194,7 @@ func (c *Config) init() {
 }
 
 // validate returns an error if the config is invalid.
-func (c Config) validate() error {
+func (c *Config) validate() error {
 	if c.Application == nil {
 		return ErrApplicationRequired
 	}
