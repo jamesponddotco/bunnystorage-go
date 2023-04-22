@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"git.sr.ht/~jamesponddotco/bunnystorage-go/internal/build"
+	"git.sr.ht/~jamesponddotco/bunnystorage-go/internal/logx"
 	"git.sr.ht/~jamesponddotco/httpx-go"
 	"git.sr.ht/~jamesponddotco/xstd-go/xerrors"
 )
@@ -137,7 +138,7 @@ type Config struct {
 	// Application is the application that is making requests to the API.
 	Application *Application
 
-	// Logger is the logger to use for logging requests.
+	// Logger is the logger to use for logging requests when debugging.
 	Logger Logger
 
 	// StorageZone is the name of the storage zone to connect to.
@@ -202,6 +203,10 @@ func (c *Config) init() {
 
 	if c.Timeout < 1 {
 		c.Timeout = DefaultTimeout
+	}
+
+	if c.Logger == nil && c.Debug {
+		c.Logger = logx.Default()
 	}
 }
 
