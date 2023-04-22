@@ -8,6 +8,7 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"net/http/httputil"
 	"os"
 	"path/filepath"
 	"strings"
@@ -67,7 +68,7 @@ func (c *Client) List(ctx context.Context, path string) ([]*Object, *Response, e
 		"AccessKey": c.cfg.AccessKey(OperationRead),
 	}
 
-	req, err := httpx.NewRequest(ctx, http.MethodGet, uri, headers, http.NoBody)
+	req, err := c.request(ctx, http.MethodGet, uri, headers, http.NoBody)
 	if err != nil {
 		return nil, nil, fmt.Errorf("%w", err)
 	}
@@ -97,7 +98,7 @@ func (c *Client) Download(ctx context.Context, path, filename string) ([]byte, *
 		"AccessKey": c.cfg.AccessKey(OperationRead),
 	}
 
-	req, err := httpx.NewRequest(ctx, http.MethodGet, uri, headers, http.NoBody)
+	req, err := c.request(ctx, http.MethodGet, uri, headers, http.NoBody)
 	if err != nil {
 		return nil, nil, fmt.Errorf("%w", err)
 	}
@@ -129,7 +130,7 @@ func (c *Client) Upload(ctx context.Context, path, file string) (*Response, erro
 		"AccessKey":    c.cfg.AccessKey(OperationWrite),
 	}
 
-	req, err := httpx.NewRequest(ctx, http.MethodPut, uri, headers, bytes.NewReader(fileData))
+	req, err := c.request(ctx, http.MethodPut, uri, headers, bytes.NewReader(fileData))
 	if err != nil {
 		return nil, fmt.Errorf("%w", err)
 	}
@@ -155,7 +156,7 @@ func (c *Client) Delete(ctx context.Context, path, filename string) (*Response, 
 		"AccessKey": c.cfg.AccessKey(OperationWrite),
 	}
 
-	req, err := httpx.NewRequest(ctx, http.MethodDelete, uri, headers, http.NoBody)
+	req, err := c.request(ctx, http.MethodDelete, uri, headers, http.NoBody)
 	if err != nil {
 		return nil, fmt.Errorf("%w", err)
 	}
@@ -197,4 +198,23 @@ func (c *Client) do(ctx context.Context, req *httpx.Request) (*Response, error) 
 	}
 
 	return response, nil
+}
+
+// request is a convenience function for creating an HTTP request.
+func (c *Client) request(ctx context.Context, method, uri string, headers map[string]string, body io.Reader) (*httpx.Request, error) {
+	req, err := httpx.NewRequest(ctx, method, uri, headers, body)
+	if err != nil {
+		return nil, fmt.Errorf("%w", err)
+	}
+
+	if c.cfg.Debug {
+		dump, err := httputil.DumpRequest(req.Req, true)
+		if err != nil {
+			return nil, fmt.Errorf("%w", err)
+		}
+
+		c.cfg.Logger.Printf("\n%s\n", string(dump))
+	}
+
+	return req, nil
 }
