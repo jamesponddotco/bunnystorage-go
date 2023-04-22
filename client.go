@@ -186,6 +186,17 @@ func (c *Client) do(ctx context.Context, req *httpx.Request) (*Response, error) 
 		}
 	}()
 
+	if c.cfg.Debug {
+		var dump []byte
+
+		dump, err = httputil.DumpResponse(ret, true)
+		if err != nil {
+			return nil, fmt.Errorf("%w", err)
+		}
+
+		c.cfg.Logger.Printf("\n%s", dump)
+	}
+
 	body, err := io.ReadAll(ret.Body)
 	if err != nil {
 		return nil, fmt.Errorf("%w", err)
@@ -213,7 +224,7 @@ func (c *Client) request(ctx context.Context, method, uri string, headers map[st
 			return nil, fmt.Errorf("%w", err)
 		}
 
-		c.cfg.Logger.Printf("\n%s\n", string(dump))
+		c.cfg.Logger.Printf("\n%s", string(dump))
 	}
 
 	return req, nil
