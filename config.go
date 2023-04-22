@@ -137,6 +137,9 @@ type Config struct {
 	// Application is the application that is making requests to the API.
 	Application *Application
 
+	// Logger is the logger to use for logging requests.
+	Logger Logger
+
 	// StorageZone is the name of the storage zone to connect to.
 	StorageZone string
 
@@ -161,9 +164,6 @@ type Config struct {
 	//
 	// This field is optional.
 	Timeout time.Duration
-
-	// Logger is the logger to use for logging requests.
-	Logger Logger
 
 	// Debug specifies whether or not to enable debug logging.
 	//
