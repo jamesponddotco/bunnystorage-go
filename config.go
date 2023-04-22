@@ -68,6 +68,12 @@ const (
 	OperationWrite
 )
 
+// Logger defines the interface for logging. It is basically a thin wrapper
+// around the standard logger which implements only a subset of the logger API.
+type Logger interface {
+	Printf(format string, v ...any)
+}
+
 // Operation represents an operation that can be performed on a Bunny.net
 // Storage API.
 type Operation int
@@ -155,6 +161,9 @@ type Config struct {
 	//
 	// This field is optional.
 	Timeout time.Duration
+
+	// Logger is the logger to use for logging requests.
+	Logger Logger
 
 	// Debug specifies whether or not to enable debug logging.
 	//
