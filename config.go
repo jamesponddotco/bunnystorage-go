@@ -184,6 +184,10 @@ func (c *Config) init() {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 
+	if c.Application == nil {
+		c.Application = DefaultApplication()
+	}
+
 	if c.MaxRetries < 1 {
 		c.MaxRetries = DefaultMaxRetries
 	}
