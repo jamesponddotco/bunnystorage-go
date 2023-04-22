@@ -27,17 +27,17 @@ const (
 // The test will fail if any of them are empty or not set.
 func SetupClient() (client *bunnystorage.Client, err error) {
 	zone, ok := os.LookupEnv("BUNNY_STORAGE_ZONE")
-	if !ok {
+	if !ok || zone == "" {
 		return nil, fmt.Errorf("%w: BUNNY_STORAGE_ZONE", ErrMissingEnvVar)
 	}
 
 	readKey, ok := os.LookupEnv("BUNNY_READ_API_KEY")
-	if !ok {
+	if !ok || readKey == "" {
 		return nil, fmt.Errorf("%w: BUNNY_READ_API_KEY", ErrMissingEnvVar)
 	}
 
 	writeKey, ok := os.LookupEnv("BUNNY_WRITE_API_KEY")
-	if !ok {
+	if !ok || writeKey == "" {
 		return nil, fmt.Errorf("%w: BUNNY_WRITE_API_KEY", ErrMissingEnvVar)
 	}
 
