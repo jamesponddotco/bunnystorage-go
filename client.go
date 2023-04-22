@@ -119,6 +119,7 @@ func (c *Client) List(ctx context.Context, path string) ([]*Object, *Response, e
 // Download downloads a file from the storage zone.
 func (c *Client) Download(ctx context.Context, path, filename string) ([]byte, *Response, error) {
 	path = strings.TrimPrefix(path, "/")
+	filename = filepath.Base(filename)
 
 	uri := xstrings.JoinWithSeparator("/", c.cfg.Endpoint.String(), c.cfg.StorageZone, path, filename)
 
@@ -177,6 +178,7 @@ func (c *Client) Upload(ctx context.Context, path, file string) (*Response, erro
 // Delete deletes a file from the storage zone.
 func (c *Client) Delete(ctx context.Context, path, filename string) (*Response, error) {
 	path = strings.TrimPrefix(path, "/")
+	filename = filepath.Base(filename)
 
 	uri := xstrings.JoinWithSeparator("/", c.cfg.Endpoint.String(), c.cfg.StorageZone, path, filename)
 
