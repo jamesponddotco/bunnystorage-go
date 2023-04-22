@@ -7,6 +7,10 @@ const (
 	EndpointLosAngeles
 	EndpointSingapore
 	EndpointSydney
+	EndpointLondon
+	EndpointStockholm
+	EndpointSaoPaulo
+	EndpointJohannesburg
 )
 
 // Endpoint represents the primary storage region of a storage zone.
@@ -25,6 +29,14 @@ func (e Endpoint) String() string {
 		return "https://sg.storage.bunnycdn.com"
 	case EndpointSydney:
 		return "https://syd.storage.bunnycdn.com"
+	case EndpointLondon:
+		return "https://uk.storage.bunnycdn.com"
+	case EndpointStockholm:
+		return "https://se.storage.bunnycdn.com"
+	case EndpointSaoPaulo:
+		return "https://br.storage.bunnycdn.com"
+	case EndpointJohannesburg:
+		return "https://jh.storage.bunnycdn.com"
 	default:
 		return "https://storage.bunnycdn.com"
 	}
@@ -33,7 +45,7 @@ func (e Endpoint) String() string {
 // IsValid returns true if the endpoint is a valid Bunny.net endpoint.
 func (e Endpoint) IsValid() bool {
 	switch e {
-	case EndpointFalkenstein, EndpointNewYork, EndpointLosAngeles, EndpointSingapore, EndpointSydney:
+	case EndpointFalkenstein, EndpointNewYork, EndpointLosAngeles, EndpointSingapore, EndpointSydney, EndpointLondon, EndpointStockholm, EndpointSaoPaulo, EndpointJohannesburg:
 		return true
 	default:
 		return false

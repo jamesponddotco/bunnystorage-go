@@ -40,6 +40,26 @@ func TestEndpoint_String(t *testing.T) {
 			expected: "https://syd.storage.bunnycdn.com",
 		},
 		{
+			name:     "London",
+			endpoint: bunnystorage.EndpointLondon,
+			expected: "https://uk.storage.bunnycdn.com",
+		},
+		{
+			name:     "Stockholm",
+			endpoint: bunnystorage.EndpointStockholm,
+			expected: "https://se.storage.bunnycdn.com",
+		},
+		{
+			name:     "SaoPaulo",
+			endpoint: bunnystorage.EndpointSaoPaulo,
+			expected: "https://br.storage.bunnycdn.com",
+		},
+		{
+			name:     "Johannesburg",
+			endpoint: bunnystorage.EndpointJohannesburg,
+			expected: "https:/jh.storage.bunnycdn.com",
+		},
+		{
 			name:     "Unknown",
 			endpoint: bunnystorage.Endpoint(-1),
 			expected: "https://storage.bunnycdn.com",
