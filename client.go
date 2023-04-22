@@ -56,37 +56,6 @@ func NewClient(cfg *Config) (*Client, error) {
 	}, nil
 }
 
-// do performs an HTTP request using the underlying HTTP client.
-func (c *Client) do(ctx context.Context, req *httpx.Request) (*Response, error) {
-	if c.cfg.Debug {
-		log.Printf("request: %s %s", req.Req.Method, req.Req.URL)
-	}
-
-	ret, err := c.httpc.Do(ctx, req)
-	if err != nil {
-		return nil, fmt.Errorf("%w", err)
-	}
-
-	defer func() {
-		if err = httpx.DrainResponseBody(ret); err != nil {
-			log.Fatal(err)
-		}
-	}()
-
-	body, err := io.ReadAll(ret.Body)
-	if err != nil {
-		return nil, fmt.Errorf("%w", err)
-	}
-
-	response := &Response{
-		Header: ret.Header.Clone(),
-		Body:   body,
-		Status: ret.StatusCode,
-	}
-
-	return response, nil
-}
-
 // List lists the files in the storage zone.
 func (c *Client) List(ctx context.Context, path string) ([]*Object, *Response, error) {
 	path = strings.TrimPrefix(path, "/")
@@ -197,4 +166,35 @@ func (c *Client) Delete(ctx context.Context, path, filename string) (*Response, 
 	}
 
 	return resp, nil
+}
+
+// do performs an HTTP request using the underlying HTTP client.
+func (c *Client) do(ctx context.Context, req *httpx.Request) (*Response, error) {
+	if c.cfg.Debug {
+		log.Printf("request: %s %s", req.Req.Method, req.Req.URL)
+	}
+
+	ret, err := c.httpc.Do(ctx, req)
+	if err != nil {
+		return nil, fmt.Errorf("%w", err)
+	}
+
+	defer func() {
+		if err = httpx.DrainResponseBody(ret); err != nil {
+			log.Fatal(err)
+		}
+	}()
+
+	body, err := io.ReadAll(ret.Body)
+	if err != nil {
+		return nil, fmt.Errorf("%w", err)
+	}
+
+	response := &Response{
+		Header: ret.Header.Clone(),
+		Body:   body,
+		Status: ret.StatusCode,
+	}
+
+	return response, nil
 }
