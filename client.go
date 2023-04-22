@@ -171,7 +171,7 @@ func (c *Client) Delete(ctx context.Context, path, filename string) (*Response, 
 // do performs an HTTP request using the underlying HTTP client.
 func (c *Client) do(ctx context.Context, req *httpx.Request) (*Response, error) {
 	if c.cfg.Debug {
-		log.Printf("request: %s %s", req.Req.Method, req.Req.URL)
+		c.cfg.Logger.Printf("request: %s %s", req.Req.Method, req.Req.URL)
 	}
 
 	ret, err := c.httpc.Do(ctx, req)
