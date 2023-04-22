@@ -11,5 +11,5 @@ const (
 	Version string = "0.1.0"
 
 	// URL is the URL of the package.
-	URL string = "https:///git.sr.ht/~jamesponddotco/bunnystorage-go"
+	URL string = "https://git.sr.ht/~jamesponddotco/bunnystorage-go"
 )
