@@ -126,9 +126,7 @@ func (c *Client) Upload(ctx context.Context, path, file string) (*Response, erro
 	)
 
 	headers := map[string]string{
-		"Content-Type":   "application/octet-stream",
-		"Content-Length": fmt.Sprintf("%d", len(fileData)),
-		"AccessKey":      c.cfg.AccessKey(OperationWrite),
+		"AccessKey": c.cfg.AccessKey(OperationWrite),
 	}
 
 	req, err := c.request(ctx, http.MethodPut, uri, headers, bytes.NewReader(fileData))
@@ -169,9 +167,9 @@ func (c *Client) Delete(ctx context.Context, path, filename string) (*Response, 
 }
 
 // do performs an HTTP request using the underlying HTTP client.
-func (c *Client) do(ctx context.Context, req *httpx.Request) (*Response, error) {
+func (c *Client) do(ctx context.Context, req *http.Request) (*Response, error) {
 	if c.cfg.Debug {
-		c.cfg.Logger.Printf("request: %s %s", req.Req.Method, req.Req.URL)
+		c.cfg.Logger.Printf("request: %s %s", req.Method, req.URL)
 	}
 
 	ret, err := c.httpc.Do(ctx, req)
@@ -211,18 +209,22 @@ func (c *Client) do(ctx context.Context, req *httpx.Request) (*Response, error) 
 }
 
 // request is a convenience function for creating an HTTP request.
-func (c *Client) request(ctx context.Context, method, uri string, headers map[string]string, body io.Reader) (*httpx.Request, error) {
+func (c *Client) request(ctx context.Context, method, uri string, headers map[string]string, body io.Reader) (*http.Request, error) {
 	if _, ok := headers["User-Agent"]; !ok {
 		headers["User-Agent"] = c.cfg.Application.UserAgent().String()
 	}
 
-	req, err := httpx.NewRequest(ctx, method, uri, headers, body)
+	req, err := http.NewRequestWithContext(ctx, method, uri, body)
 	if err != nil {
 		return nil, fmt.Errorf("%w", err)
 	}
 
+	for k, v := range headers {
+		req.Header.Set(k, v)
+	}
+
 	if c.cfg.Debug {
-		dump, err := httputil.DumpRequest(req.Req, true)
+		dump, err := httputil.DumpRequest(req, true)
 		if err != nil {
 			return nil, fmt.Errorf("%w", err)
 		}
