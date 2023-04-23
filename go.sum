@@ -2,6 +2,8 @@ git.sr.ht/~jamesponddotco/httpx-go v0.0.0-20230412153036-ca404c3aac75 h1:zxki0l7
 git.sr.ht/~jamesponddotco/httpx-go v0.0.0-20230412153036-ca404c3aac75/go.mod h1:5b9IHkokuXKVcAG5bmf0ej26NVMpV1usjIwrwOyR2SE=
 git.sr.ht/~jamesponddotco/httpx-go v0.0.0-20230421171525-aecf9e4b6ce8 h1:GYm+WO+JLbPQue6vwaxn6N8jC9oTFEYB9c/4PQbuQFk=
 git.sr.ht/~jamesponddotco/httpx-go v0.0.0-20230421171525-aecf9e4b6ce8/go.mod h1:5b9IHkokuXKVcAG5bmf0ej26NVMpV1usjIwrwOyR2SE=
+git.sr.ht/~jamesponddotco/httpx-go v0.0.0-20230423150301-171e661cdd8e h1:VLZbIyVGiLS4Ig/IzSbLjMgk8kF24d0fCiV6UZjCr+I=
+git.sr.ht/~jamesponddotco/httpx-go v0.0.0-20230423150301-171e661cdd8e/go.mod h1:5b9IHkokuXKVcAG5bmf0ej26NVMpV1usjIwrwOyR2SE=
 git.sr.ht/~jamesponddotco/pagecache-go v0.0.0-20230411150210-54b704d32088 h1:LKK7NuFKNBduMQkhg/Q4vSOtDGc8BIKh8gwmsStrIME=
 git.sr.ht/~jamesponddotco/pagecache-go v0.0.0-20230411150210-54b704d32088/go.mod h1:/EPCk+d5n5/uv92yVu9qJ8HhhNMqibbgGeFIUzP3k14=
 git.sr.ht/~jamesponddotco/recache-go v1.0.1 h1:O9S7SdGyMh4mD+Vom0WOkY45EhJJHDRBlvVpzcL16sM=
