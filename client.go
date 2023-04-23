@@ -126,16 +126,15 @@ func (c *Client) Upload(ctx context.Context, path, file string) (*Response, erro
 	)
 
 	headers := map[string]string{
-		"Content-Type": "application/octet-stream",
-		"AccessKey":    c.cfg.AccessKey(OperationWrite),
+		"Content-Type":   "application/octet-stream",
+		"Content-Length": fmt.Sprintf("%d", len(fileData)),
+		"AccessKey":      c.cfg.AccessKey(OperationWrite),
 	}
 
 	req, err := c.request(ctx, http.MethodPut, uri, headers, bytes.NewReader(fileData))
 	if err != nil {
 		return nil, fmt.Errorf("%w", err)
 	}
-
-	req.Req.ContentLength = int64(len(fileData))
 
 	resp, err := c.do(ctx, req)
 	if err != nil {
