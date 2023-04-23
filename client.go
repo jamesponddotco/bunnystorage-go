@@ -13,6 +13,7 @@ import (
 	"path/filepath"
 	"strings"
 
+	"git.sr.ht/~jamesponddotco/bunnystorage-go/internal/cryptoutil"
 	"git.sr.ht/~jamesponddotco/httpx-go"
 	"git.sr.ht/~jamesponddotco/xstd-go/xerrors"
 	"git.sr.ht/~jamesponddotco/xstd-go/xstrings"
@@ -125,7 +126,13 @@ func (c *Client) Upload(ctx context.Context, path, file string) (*Response, erro
 		uri      = xstrings.JoinWithSeparator("/", c.cfg.Endpoint.String(), c.cfg.StorageZone, path, filename)
 	)
 
+	hash, err := cryptoutil.ComputeSHA256(file)
+	if err != nil {
+		return nil, fmt.Errorf("%w", err)
+	}
+
 	headers := map[string]string{
+		"Checksum":  strings.ToUpper(hash),
 		"AccessKey": c.cfg.AccessKey(OperationWrite),
 	}
 
