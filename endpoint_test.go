@@ -57,7 +57,7 @@ func TestEndpoint_String(t *testing.T) {
 		{
 			name:     "Johannesburg",
 			endpoint: bunnystorage.EndpointJohannesburg,
-			expected: "https:/jh.storage.bunnycdn.com",
+			expected: "https://jh.storage.bunnycdn.com",
 		},
 		{
 			name:     "Unknown",
