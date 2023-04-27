@@ -72,7 +72,7 @@ func main() {
 ```
 
 For more examples and usage details, please [check the Go reference
-documentation](https://godoc.org/git.sr.ht/~jamesponddotco/bunnystorage-go).
+documentation](https://godocs.io/git.sr.ht/~jamesponddotco/bunnystorage-go).
 
 ## Contributing
 
