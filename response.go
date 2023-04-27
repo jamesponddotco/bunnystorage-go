@@ -16,15 +16,19 @@ type Response struct {
 
 // Object represents a file or directory in the BunnyCDN Storage API.
 type Object struct {
-	GUID            string `json:"Guid,omitempty"`
-	StorageZoneName string `json:"StorageZoneName,omitempty"`
+	UserID          string `json:"UserId,omitempty"`
+	ContentType     string `json:"ContentType,omitempty"`
 	Path            string `json:"Path,omitempty"`
 	ObjectName      string `json:"ObjectName,omitempty"`
+	ReplicatedZones string `json:"ReplicatedZones,omitempty"`
 	LastChanged     string `json:"LastChanged,omitempty"`
-	UserID          string `json:"UserId,omitempty"`
+	StorageZoneName string `json:"StorageZoneName,omitempty"`
+	Checksum        string `json:"Checksum,omitempty"`
 	DateCreated     string `json:"DateCreated,omitempty"`
-	IsDirectory     bool   `json:"IsDirectory,omitempty"`
+	GUID            string `json:"Guid,omitempty"`
 	Length          int    `json:"Length,omitempty"`
 	ServerID        int    `json:"ServerId,omitempty"`
 	StorageZoneID   int    `json:"StorageZoneId,omitempty"`
+	ArrayNumber     int    `json:"ArrayNumber,omitempty"`
+	IsDirectory     bool   `json:"IsDirectory,omitempty"`
 }
