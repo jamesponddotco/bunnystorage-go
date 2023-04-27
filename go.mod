@@ -3,8 +3,8 @@ module git.sr.ht/~jamesponddotco/bunnystorage-go
 go 1.20
 
 require (
-	git.sr.ht/~jamesponddotco/httpx-go v0.0.0-20230426212059-beeaa9834072
-	git.sr.ht/~jamesponddotco/xstd-go v0.0.0-20230416135002-a2216056c1a0
+	git.sr.ht/~jamesponddotco/httpx-go v0.0.0-20230427215504-7c26a7f028e7
+	git.sr.ht/~jamesponddotco/xstd-go v0.0.0-20230426212346-5c34875bdb6a
 	golang.org/x/time v0.3.0
 )
 
