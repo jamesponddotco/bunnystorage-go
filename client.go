@@ -53,6 +53,8 @@ func NewClient(cfg *Config) (*Client, error) {
 			RateLimiter: rate.NewLimiter(rate.Limit(2), 1),
 			RetryPolicy: httpx.DefaultRetryPolicy(),
 			UserAgent:   cfg.Application.UserAgent(),
+			Logger:      cfg.Logger,
+			Debug:       cfg.Debug,
 		},
 		cfg: cfg,
 	}, nil
@@ -175,10 +177,6 @@ func (c *Client) Delete(ctx context.Context, path, filename string) (*Response, 
 
 // do performs an HTTP request using the underlying HTTP client.
 func (c *Client) do(ctx context.Context, req *http.Request) (*Response, error) {
-	if c.cfg.Debug {
-		c.cfg.Logger.Printf("request: %s %s", req.Method, req.URL)
-	}
-
 	ret, err := c.httpc.Do(ctx, req)
 	if err != nil {
 		return nil, fmt.Errorf("%w", err)
