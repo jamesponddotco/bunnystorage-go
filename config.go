@@ -6,9 +6,9 @@ import (
 	"time"
 
 	"git.sr.ht/~jamesponddotco/bunnystorage-go/internal/build"
-	"git.sr.ht/~jamesponddotco/bunnystorage-go/internal/logx"
 	"git.sr.ht/~jamesponddotco/httpx-go"
 	"git.sr.ht/~jamesponddotco/xstd-go/xerrors"
+	"git.sr.ht/~jamesponddotco/xstd-go/xlog"
 )
 
 const (
@@ -206,7 +206,7 @@ func (c *Config) init() {
 	}
 
 	if c.Logger == nil && c.Debug {
-		c.Logger = logx.Default()
+		c.Logger = xlog.DefaultZeroLogger
 	}
 }
 
