@@ -24,19 +24,19 @@ vulnerabilities: # Analyzes the codebase and looks for vulnerabilities affecting
 	govulncheck ./...
 
 test: # Runs unit tests.
-	$(GO) test -short -cover -race -vet all -mod readonly ./...
-
-test/coverage: # Generates a coverage profile and open it in a browser.
-	$(GO) test -coverprofile cover.out
-	$(GO) tool cover -html=cover.out
-
-test/integration: # Runs integration tests.
 ifndef $(and BUNNY_STORAGE_ZONE,BUNNY_READ_API_KEY,BUNNY_WRITE_API_KEY)
 	$(error Missing required environment variables. Check test/README.md for more information.)
 endif
-	$(GO) test -cover -race -vet all -mod readonly ./test/integration
+	$(GO) test -cover -race -vet all -mod readonly ./...
+
+test/coverage: # Generates a coverage profile and open it in a browser.
+ifndef $(and BUNNY_STORAGE_ZONE,BUNNY_READ_API_KEY,BUNNY_WRITE_API_KEY)
+	$(error Missing required environment variables. Check test/README.md for more information.)
+endif
+	$(GO) test -coverprofile cover.out
+	$(GO) tool cover -html=cover.out
 
 clean: # Cleans cache files from tests and deletes any build output.
 	$(GO) clean -cache -fuzzcache -testcache ./...
 
-.PHONY: all init fmt lint vulnerabilities test test/coverage test/integration clean
+.PHONY: all init fmt lint vulnerabilities test test/coverage clean
