@@ -77,7 +77,7 @@ documentation](https://godocs.io/git.sr.ht/~jamesponddotco/bunnystorage-go).
 ## Contributing
 
 Anyone can help make `bunnystorage` better. Check out [the contribution
-guidelines](https://git.sr.ht/~jamesponddotco/bunnystorage-go/tree/master/item/CONTRIBUTING.md)
+guidelines](https://git.sr.ht/~jamesponddotco/bunnystorage-go/tree/trunk/item/CONTRIBUTING.md)
 for more information.
 
 ## Resources
