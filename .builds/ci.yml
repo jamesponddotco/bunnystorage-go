@@ -6,7 +6,7 @@ packages:
 sources:
   - https://git.sr.ht/~jamesponddotco/bunnystorage-go
 secrets:
-  - c46e3cf8-1cab-4e7a-9d71-4159ba2f5da1 # Bunny.net API keys
+  -  47377eb8-847b-45ae-a96e-c2e42ce9adea # Bunny.net API keys
 tasks:
   - setup: |
       cd bunnystorage-go
@@ -17,5 +17,7 @@ tasks:
       make lint
   - test: |
       cd bunnystorage-go
-      souce "${HOME}/bunnynet"
+      set +x
+      source "${HOME}/bunnynet"
+      set -x
       make test
