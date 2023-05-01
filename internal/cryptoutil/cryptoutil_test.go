@@ -3,7 +3,6 @@ package cryptoutil_test
 import (
 	"crypto/sha256"
 	"encoding/hex"
-	"io/ioutil"
 	"log"
 	"os"
 	"path/filepath"
@@ -13,7 +12,7 @@ import (
 )
 
 func TestComputeSHA256(t *testing.T) {
-	tempDir, err := ioutil.TempDir("", "cryptoutil_test_")
+	tempDir, err := os.MkdirTemp("", "cryptoutil_test_")
 	if err != nil {
 		t.Fatalf("Error creating temporary directory: %v", err)
 	}
@@ -27,7 +26,7 @@ func TestComputeSHA256(t *testing.T) {
 		filePath    = filepath.Join(tempDir, "testfile.txt")
 	)
 
-	if err := ioutil.WriteFile(filePath, fileContent, 0o600); err != nil {
+	if err := os.WriteFile(filePath, fileContent, 0o600); err != nil {
 		t.Fatalf("Error creating test file: %v", err)
 	}
 

@@ -1,7 +1,6 @@
 package testutil_test
 
 import (
-	"io/ioutil"
 	"os"
 	"testing"
 
@@ -81,7 +80,7 @@ func TestSetupFile(t *testing.T) {
 			t.Fatalf("expected no error, got %v", err)
 		}
 
-		content, err := ioutil.ReadFile(name)
+		content, err := os.ReadFile(name)
 		if err != nil {
 			t.Fatalf("failed to read test file: %v", err)
 		}
