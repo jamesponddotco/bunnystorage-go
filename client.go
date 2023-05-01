@@ -16,6 +16,7 @@ import (
 	"git.sr.ht/~jamesponddotco/bunnystorage-go/internal/cryptoutil"
 	"git.sr.ht/~jamesponddotco/httpx-go"
 	"git.sr.ht/~jamesponddotco/xstd-go/xerrors"
+	"git.sr.ht/~jamesponddotco/xstd-go/xnet/xhttp/xhttputil"
 	"git.sr.ht/~jamesponddotco/xstd-go/xstrings"
 	"golang.org/x/time/rate"
 )
@@ -196,7 +197,7 @@ func (c *Client) do(ctx context.Context, req *http.Request) (*Response, error) {
 			return nil, fmt.Errorf("%w", err)
 		}
 
-		c.cfg.Logger.Printf("\n%s", dump)
+		c.cfg.Logger.Printf("\n%s", xhttputil.RedactSecret(dump, req.Header.Get("AccessKey")))
 	}
 
 	body, err := io.ReadAll(ret.Body)
@@ -233,12 +234,14 @@ func (c *Client) request(ctx context.Context, method, uri string, headers map[st
 	}
 
 	if c.cfg.Debug {
-		dump, err := httputil.DumpRequest(req, true)
+		var dump []byte
+
+		dump, err = httputil.DumpRequest(req, true)
 		if err != nil {
 			return nil, fmt.Errorf("%w", err)
 		}
 
-		c.cfg.Logger.Printf("\n%s", string(dump))
+		c.cfg.Logger.Printf("\n%s", xhttputil.RedactSecret(dump, req.Header.Get("AccessKey")))
 	}
 
 	return req, nil
