@@ -1,0 +1,41 @@
+---
+name: 'CI'
+
+on:
+  push:
+    branches: ['trunk']
+    paths-ignore:
+      - '.editorconfig'
+      - '.gitignore'
+      - '.golangci.toml'
+      - '.builds/'
+      - 'LICENSE.md'
+      - 'README.md'
+  pull_request:
+    branches: ['trunk']
+    paths-ignore:
+      - '.editorconfig'
+      - '.gitignore'
+      - '.golangci.toml'
+      - '.builds/'
+      - 'LICENSE.md'
+      - 'README.md'
+
+jobs:
+  test:
+    runs-on: 'ubuntu-latest'
+    name: 'Tests'
+    steps:
+      - uses: 'actions/checkout@v3'
+
+      - name: 'Setup Go environment'
+        uses: 'actions/setup-go@v4'
+        with:
+          go-version: '>=1.20.3'
+
+      - name: 'Run tests'
+        run: 'make test'
+        env:
+          BUNNY_STORAGE_ZONE: '${{ secrets.BUNNY_STORAGE_ZONE }}'
+          BUNNY_READ_API_KEY: '${{secrets.BUNNY_READ_API_KEY }}'
+          BUNNY_WRITE_API_KEY: '${{secrets.BUNNY_WRITE_API_KEY }}'

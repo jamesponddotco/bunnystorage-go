@@ -1,0 +1,21 @@
+---
+image: 'archlinux'
+packages:
+  - 'go'
+  - 'make'
+sources:
+  - https://git.sr.ht/~jamesponddotco/bunnystorage-go
+secrets:
+  - c46e3cf8-1cab-4e7a-9d71-4159ba2f5da1 # Bunny.net API keys
+tasks:
+  - setup: |
+      cd bunnystorage-go
+      make init
+  - lint: |
+      cd bunnystorage-go
+      export PATH="${HOME}/go/bin:${PATH}"
+      make lint
+  - test: |
+      cd bunnystorage-go
+      souce "${HOME}/bunnynet"
+      make test
