@@ -6,7 +6,7 @@ packages:
 sources:
   - https://git.sr.ht/~jamesponddotco/bunnystorage-go
 secrets:
-  -  47377eb8-847b-45ae-a96e-c2e42ce9adea # Bunny.net API keys
+  - c7abfb86-83eb-49a7-8abf-4b400e39e59e # Bunny.net API keys
 tasks:
   - setup: |
       cd bunnystorage-go
