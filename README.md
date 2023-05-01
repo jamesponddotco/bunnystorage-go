@@ -2,6 +2,7 @@
 
 [![Go Documentation](https://godocs.io/git.sr.ht/~jamesponddotco/bunnystorage-go?status.svg)](https://godocs.io/git.sr.ht/~jamesponddotco/bunnystorage-go)
 [![Go Report Card](https://goreportcard.com/badge/git.sr.ht/~jamesponddotco/bunnystorage-go)](https://goreportcard.com/report/git.sr.ht/~jamesponddotco/bunnystorage-go)
+[![builds.sr.ht status](https://builds.sr.ht/~jamesponddotco/bunnystorage-go.svg)](https://builds.sr.ht/~jamesponddotco/bunnystorage-go?)
 
 Package `bunnystorage` is a simple and easy-to-use package for
 interacting with the [Bunny.net Edge Storage
