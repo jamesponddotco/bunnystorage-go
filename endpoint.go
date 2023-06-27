@@ -1,5 +1,7 @@
 package bunnystorage
 
+import "net/url"
+
 // The following endpoints are available for use with the Edge Storage API.
 const (
 	EndpointFalkenstein Endpoint = iota + 1
@@ -15,6 +17,38 @@ const (
 
 // Endpoint represents the primary storage region of a storage zone.
 type Endpoint int
+
+// Parse parses a string representation of an endpoint into an Endpoint. If the
+// string is not a valid endpoint, EndpointFalkenstein is returned.
+func Parse(s string) Endpoint {
+	uri, err := url.Parse(s)
+	if err != nil {
+		return EndpointFalkenstein
+	}
+
+	switch uri.Host {
+	case "storage.bunnycdn.com":
+		return EndpointFalkenstein
+	case "ny.storage.bunnycdn.com":
+		return EndpointNewYork
+	case "la.storage.bunnycdn.com":
+		return EndpointLosAngeles
+	case "sg.storage.bunnycdn.com":
+		return EndpointSingapore
+	case "syd.storage.bunnycdn.com":
+		return EndpointSydney
+	case "uk.storage.bunnycdn.com":
+		return EndpointLondon
+	case "se.storage.bunnycdn.com":
+		return EndpointStockholm
+	case "br.storage.bunnycdn.com":
+		return EndpointSaoPaulo
+	case "jh.storage.bunnycdn.com":
+		return EndpointJohannesburg
+	default:
+		return EndpointFalkenstein
+	}
+}
 
 // String returns the string representation of the endpoint.
 func (e Endpoint) String() string {

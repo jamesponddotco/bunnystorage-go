@@ -6,6 +6,80 @@ import (
 	"git.sr.ht/~jamesponddotco/bunnystorage-go"
 )
 
+func TestParse(t *testing.T) {
+	t.Parallel()
+
+	tests := []struct {
+		name     string
+		input    string
+		expected bunnystorage.Endpoint
+	}{
+		{
+			name:     "default case",
+			input:    "http://default.com",
+			expected: bunnystorage.EndpointFalkenstein,
+		},
+		{
+			name:     "storage.bunnycdn.com",
+			input:    "http://storage.bunnycdn.com",
+			expected: bunnystorage.EndpointFalkenstein,
+		},
+		{
+			name:     "ny.storage.bunnycdn.com",
+			input:    "http://ny.storage.bunnycdn.com",
+			expected: bunnystorage.EndpointNewYork,
+		},
+		{
+			name:     "la.storage.bunnycdn.com",
+			input:    "http://la.storage.bunnycdn.com",
+			expected: bunnystorage.EndpointLosAngeles,
+		},
+		{
+			name:     "sg.storage.bunnycdn.com",
+			input:    "http://sg.storage.bunnycdn.com",
+			expected: bunnystorage.EndpointSingapore,
+		},
+		{
+			name:     "syd.storage.bunnycdn.com",
+			input:    "http://syd.storage.bunnycdn.com",
+			expected: bunnystorage.EndpointSydney,
+		},
+		{
+			name:     "uk.storage.bunnycdn.com",
+			input:    "http://uk.storage.bunnycdn.com",
+			expected: bunnystorage.EndpointLondon,
+		},
+		{
+			name:     "se.storage.bunnycdn.com",
+			input:    "http://se.storage.bunnycdn.com",
+			expected: bunnystorage.EndpointStockholm,
+		},
+		{
+			name:     "br.storage.bunnycdn.com",
+			input:    "http://br.storage.bunnycdn.com",
+			expected: bunnystorage.EndpointSaoPaulo,
+		},
+		{
+			name:     "jh.storage.bunnycdn.com",
+			input:    "http://jh.storage.bunnycdn.com",
+			expected: bunnystorage.EndpointJohannesburg,
+		},
+	}
+
+	for _, tt := range tests {
+		tt := tt
+
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+
+			result := bunnystorage.Parse(tt.input)
+			if result != tt.expected {
+				t.Errorf("got %v, want %v", result, tt.expected)
+			}
+		})
+	}
+}
+
 func TestEndpoint_String(t *testing.T) {
 	t.Parallel()
 
