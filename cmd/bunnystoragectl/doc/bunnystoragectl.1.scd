@@ -57,8 +57,8 @@ the edge storage service provided by Bunny.net.
 	Options are:
 
 	*-p*, *--path*
-        Set the directory path to where your file will be stored. Defaults to
-        the root directory.
+		Set the directory path to where your file will be stored. Defaults to
+		the root directory.
 
 	*-f*, *--file*
 		Set the path to the file you want to upload.
@@ -69,8 +69,8 @@ the edge storage service provided by Bunny.net.
 	Options are:
 
 	*-p*, *--path*
-        Set the directory path to your file in Bunny.net. Defaults to the root
-        directory.
+		Set the directory path to your file in Bunny.net. Defaults to the root
+		directory.
 
 	*-f*, *--file*
 		Set the file you want to download.
@@ -87,8 +87,8 @@ the edge storage service provided by Bunny.net.
 	Options are:
 
 	*-p*, *--path*
-        Set the directory path to your file in Bunny.net. Defaults to the root
-        directory.
+		Set the directory path to your file in Bunny.net. Defaults to the root
+		directory.
 
 	*-f*, *--file*
 		Set the file you want to remove.
@@ -113,9 +113,9 @@ the edge storage service provided by Bunny.net.
 	bunnystoragectl -k 'my-key' -z 'my-zone' download -F -p 'path/to/files' -f 'filename'
 
 *Example 3. Upload file*
-    The following command line upload a file called "file.txt" located at
-    "/path/to/local/" in the local filesystem to the storage zone "my-zone" and
-    path "path/to/files/in/bunny".
+	The following command line upload a file called "file.txt" located at
+	"/path/to/local/" in the local filesystem to the storage zone "my-zone" and
+	path "path/to/files/in/bunny".
 
 	As with the previous example, it uses flags to provide *bunnystoragectl*
 	with the information it needs, but this time it provides the storage zone
