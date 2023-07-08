@@ -16,7 +16,7 @@ tasks:
       cd bunnystorage-go
       export PATH="${HOME}/go/bin:${PATH}"
       make lint
-  - build |
+  - build: |
       cd bunnystorage-go
       make
   - test: |
