@@ -24,6 +24,10 @@ trim_trailing_whitespace = false
 indent_style = tab
 indent_size = 4
 
+[*.scd]
+indent_style = tab
+indent_size = 4
+
 [go.mod]
 indent_style = tab
 
