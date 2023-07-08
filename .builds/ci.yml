@@ -3,6 +3,7 @@ image: 'archlinux'
 packages:
   - 'go'
   - 'make'
+  - 'scdoc'
 sources:
   - https://git.sr.ht/~jamesponddotco/bunnystorage-go
 secrets:
@@ -15,6 +16,9 @@ tasks:
       cd bunnystorage-go
       export PATH="${HOME}/go/bin:${PATH}"
       make lint
+  - build |
+      cd bunnystorage-go
+      make
   - test: |
       cd bunnystorage-go
       set +x
