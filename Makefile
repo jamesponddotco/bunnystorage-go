@@ -22,8 +22,8 @@ GOBUILD_OPTS=-trimpath
 all: build doc
 
 init: # Downloads and verifies project dependencies and tooling.
-	$(GO) install mvdan.cc/gofumpt@v0.5.0
-	$(GO) install github.com/golangci/golangci-lint/cmd/golangci-lint@v1.52.2
+	$(GO) install mvdan.cc/gofumpt@latest
+	$(GO) install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
 	$(GO) install golang.org/x/vuln/cmd/govulncheck@latest
 
 build: # Builds an application binary.
