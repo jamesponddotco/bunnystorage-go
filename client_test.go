@@ -107,7 +107,7 @@ func TestClient_List(t *testing.T) {
 	}
 }
 
-func TestClient_UploadDownloadDelete(t *testing.T) {
+func TestClient_UploadDownloadDelete(t *testing.T) { //nolint:gocyclo // TODO: refactor with mock tests
 	t.Parallel()
 
 	ctx := context.Background()
