@@ -6,6 +6,8 @@ git.sr.ht/~jamesponddotco/recache-go v1.0.1 h1:O9S7SdGyMh4mD+Vom0WOkY45EhJJHDRBl
 git.sr.ht/~jamesponddotco/recache-go v1.0.1/go.mod h1:oF6LkAuwZYQqHe8+G/4hP9ZSNyDjAk6J8qhuy44wXw0=
 git.sr.ht/~jamesponddotco/xstd-go v0.0.0-20230501011110-16bd5bc9c789 h1:+h08hRnF4BwUNH/UMVw5xUIHLrn1mSKAQwzaGaKqDSQ=
 git.sr.ht/~jamesponddotco/xstd-go v0.0.0-20230501011110-16bd5bc9c789/go.mod h1:0tqdK5/MZYSPxAiwtG4LlVfdQ+iaFoksU/FTIGQ/v/Y=
+git.sr.ht/~jamesponddotco/xstd-go v0.0.0-20230709232003-22489c0e7382 h1:3LjkxT6zVDvIlaOc5riiRAnAKVgpTWHxWgmzpzOuR8A=
+git.sr.ht/~jamesponddotco/xstd-go v0.0.0-20230709232003-22489c0e7382/go.mod h1:0tqdK5/MZYSPxAiwtG4LlVfdQ+iaFoksU/FTIGQ/v/Y=
 github.com/cpuguy83/go-md2man/v2 v2.0.2 h1:p1EgwI/C7NhT0JmVkwCD2ZBK8j4aeHQX2pMHHBfMQ6w=
 github.com/cpuguy83/go-md2man/v2 v2.0.2/go.mod h1:tgQtvFlXSQOSOSIRvRPT7W67SCa46tRHOmNcaadrF8o=
 github.com/russross/blackfriday/v2 v2.1.0 h1:JIOH55/0cWyOuilr9/qlrm0BSXldqnqwMsf35Ld67mk=

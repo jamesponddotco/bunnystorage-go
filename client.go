@@ -228,7 +228,7 @@ func (c *Client) request(ctx context.Context, method, uri string, headers map[st
 			return nil, fmt.Errorf("%w", err)
 		}
 
-		c.cfg.Logger.Printf("\n%s", xhttputil.RedactSecret(dump, req.Header.Get("AccessKey")))
+		c.cfg.Logger.Printf("\n%s", xhttputil.RedactSecret(dump, "AccessKey"))
 	}
 
 	return req, nil
