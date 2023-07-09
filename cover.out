@@ -1,4 +1,20 @@
 mode: set
+git.sr.ht/~jamesponddotco/bunnystorage-go/internal/testutil/setup.go:28.61,30.23 2 1
+git.sr.ht/~jamesponddotco/bunnystorage-go/internal/testutil/setup.go:30.23,32.3 1 1
+git.sr.ht/~jamesponddotco/bunnystorage-go/internal/testutil/setup.go:34.2,35.26 2 1
+git.sr.ht/~jamesponddotco/bunnystorage-go/internal/testutil/setup.go:35.26,37.3 1 1
+git.sr.ht/~jamesponddotco/bunnystorage-go/internal/testutil/setup.go:39.2,40.27 2 1
+git.sr.ht/~jamesponddotco/bunnystorage-go/internal/testutil/setup.go:40.27,42.3 1 1
+git.sr.ht/~jamesponddotco/bunnystorage-go/internal/testutil/setup.go:44.2,54.16 3 1
+git.sr.ht/~jamesponddotco/bunnystorage-go/internal/testutil/setup.go:54.16,56.3 1 0
+git.sr.ht/~jamesponddotco/bunnystorage-go/internal/testutil/setup.go:58.2,58.20 1 1
+git.sr.ht/~jamesponddotco/bunnystorage-go/internal/testutil/setup.go:62.67,66.16 3 1
+git.sr.ht/~jamesponddotco/bunnystorage-go/internal/testutil/setup.go:66.16,68.3 1 0
+git.sr.ht/~jamesponddotco/bunnystorage-go/internal/testutil/setup.go:70.2,70.65 1 1
+git.sr.ht/~jamesponddotco/bunnystorage-go/internal/testutil/setup.go:70.65,72.3 1 0
+git.sr.ht/~jamesponddotco/bunnystorage-go/internal/testutil/setup.go:74.2,75.16 2 1
+git.sr.ht/~jamesponddotco/bunnystorage-go/internal/testutil/setup.go:75.16,77.3 1 0
+git.sr.ht/~jamesponddotco/bunnystorage-go/internal/testutil/setup.go:79.2,79.46 1 1
 git.sr.ht/~jamesponddotco/bunnystorage-go/client.go:38.46,39.16 1 1
 git.sr.ht/~jamesponddotco/bunnystorage-go/client.go:39.16,41.3 1 1
 git.sr.ht/~jamesponddotco/bunnystorage-go/client.go:43.2,45.39 2 1
