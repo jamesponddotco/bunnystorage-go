@@ -64,6 +64,16 @@ func TestParse(t *testing.T) {
 			input:    "http://jh.storage.bunnycdn.com",
 			expected: bunnystorage.EndpointJohannesburg,
 		},
+		{
+			name:     "localhost",
+			input:    "http://localhost:62769",
+			expected: bunnystorage.EndpointLocalhost,
+		},
+		{
+			name:     "invalid url",
+			input:    "://invalid.url",
+			expected: bunnystorage.EndpointFalkenstein,
+		},
 	}
 
 	for _, tt := range tests {
@@ -132,6 +142,11 @@ func TestEndpoint_String(t *testing.T) {
 			name:     "Johannesburg",
 			endpoint: bunnystorage.EndpointJohannesburg,
 			expected: "https://jh.storage.bunnycdn.com",
+		},
+		{
+			name:     "Localhost",
+			endpoint: bunnystorage.EndpointLocalhost,
+			expected: "http://localhost:62769",
 		},
 		{
 			name:     "Unknown",
