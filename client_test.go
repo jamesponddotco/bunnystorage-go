@@ -4,6 +4,7 @@ import (
 	"context"
 	"log"
 	"os"
+	"path/filepath"
 	"testing"
 
 	"git.sr.ht/~jamesponddotco/bunnystorage-go"
@@ -122,7 +123,24 @@ func TestClient_UploadDownloadDelete(t *testing.T) {
 		}
 	})
 
-	resp, err := client.Upload(ctx, _testPath, testFile)
+	file, err := os.Open(testFile)
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer file.Close()
+
+	filename := filepath.Base(testFile)
+
+	checksum, err := bunnystorage.ComputeSHA256(file)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if _, err = file.Seek(0, 0); err != nil {
+		t.Fatal(err)
+	}
+
+	resp, err := client.Upload(ctx, _testPath, filename, checksum, file)
 	if err != nil {
 		t.Fatalf("upload error: %v", err)
 	}

@@ -1,7 +1,6 @@
 package bunnystorage
 
 import (
-	"bytes"
 	"context"
 	"encoding/json"
 	"fmt"
@@ -9,11 +8,9 @@ import (
 	"log"
 	"net/http"
 	"net/http/httputil"
-	"os"
 	"path/filepath"
 	"strings"
 
-	"git.sr.ht/~jamesponddotco/bunnystorage-go/internal/cryptoutil"
 	"git.sr.ht/~jamesponddotco/httpx-go"
 	"git.sr.ht/~jamesponddotco/xstd-go/xerrors"
 	"git.sr.ht/~jamesponddotco/xstd-go/xnet/xhttp/xhttputil"
@@ -116,30 +113,20 @@ func (c *Client) Download(ctx context.Context, path, filename string) ([]byte, *
 }
 
 // Upload uploads a file to the storage zone.
-func (c *Client) Upload(ctx context.Context, path, file string) (*Response, error) {
+func (c *Client) Upload(ctx context.Context, path, filename, checksum string, body io.Reader) (*Response, error) {
 	path = strings.TrimPrefix(path, "/")
 
-	fileData, err := os.ReadFile(file)
-	if err != nil {
-		return nil, fmt.Errorf("%w", err)
-	}
-
-	var (
-		filename = filepath.Base(file)
-		uri      = xstrings.JoinWithSeparator("/", c.cfg.Endpoint.String(), c.cfg.StorageZone, path, filename)
-	)
-
-	hash, err := cryptoutil.ComputeSHA256(file)
-	if err != nil {
-		return nil, fmt.Errorf("%w", err)
-	}
+	uri := xstrings.JoinWithSeparator("/", c.cfg.Endpoint.String(), c.cfg.StorageZone, path, filename)
 
 	headers := map[string]string{
-		"Checksum":  strings.ToUpper(hash),
 		"AccessKey": c.cfg.AccessKey(OperationWrite),
 	}
 
-	req, err := c.request(ctx, http.MethodPut, uri, headers, bytes.NewReader(fileData))
+	if checksum == "" {
+		headers["Checksum"] = strings.ToUpper(checksum)
+	}
+
+	req, err := c.request(ctx, http.MethodPut, uri, headers, body)
 	if err != nil {
 		return nil, fmt.Errorf("%w", err)
 	}
