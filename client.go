@@ -122,7 +122,7 @@ func (c *Client) Upload(ctx context.Context, path, filename, checksum string, bo
 		"AccessKey": c.cfg.AccessKey(OperationWrite),
 	}
 
-	if checksum == "" {
+	if checksum != "" {
 		headers["Checksum"] = strings.ToUpper(checksum)
 	}
 
