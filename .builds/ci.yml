@@ -25,3 +25,4 @@ tasks:
       source "${HOME}/bunnynet"
       set -x
       make test
+      make test/integration
