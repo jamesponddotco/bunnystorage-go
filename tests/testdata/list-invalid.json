@@ -1,0 +1,24 @@
+[
+    {
+        "UserId": "737ccef2-ded9-4acf-9f2f-ce006c7a3bd1",
+        "Path": "/bunnystorage-go/testdata/",
+        "ObjectName": "5k6jh7.txt",
+        "LastChanged": "2023-04-20T15:32:08.004",
+        "StorageZoneName": "bunnystorage-go",
+        "Checksum": "3DE0A250A581BD2D18E0CEC41924AFAA691C633C09543AF456C6B7831E419A82",
+        "DateCreated": "2023-04-20T15:32:08.004",
+        "Guid": "fd3e5a08-1dd3-484a-839d-cdc66fd1fa6e",
+        "Length": 65,
+        "ServerId": 146,
+        "StorageZoneId": 996873
+    },
+    {
+        "UserId": "737ccef2-ded9-4acf-9f2f-ce006c7a3bd1",
+        "Path": "/bunnystorage-go/testdata/",
+        "ObjectName": "87dwda.txt",
+        "LastChanged": "2023-04-20T15:32:08.535",
+        "StorageZoneName": "bunnystorage-go",
+        "Checksum": "27307E0E4EBCA9D816582BBB6EEFB0FD6F892A4412398345408B7068AC236BDE",
+        "DateCreated": "2023-04-20T15:32:08.535",
+        "Guid": "6c5cf3ad-be04-4269-a0cb-43c05b155423"
+]

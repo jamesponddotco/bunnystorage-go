@@ -69,6 +69,41 @@ func TestSetupClient(t *testing.T) {
 	}
 }
 
+func TestSetupMockClient(t *testing.T) {
+	t.Parallel()
+
+	tests := []struct {
+		name      string
+		wantPanic bool
+	}{
+		{
+			name:      "setup_success",
+			wantPanic: false,
+		},
+	}
+
+	for _, tt := range tests {
+		tt := tt
+
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+
+			defer func() {
+				r := recover()
+				if (r != nil) != tt.wantPanic {
+					t.Errorf("SetupMockClient() panic = %v, wantPanic = %v", r != nil, tt.wantPanic)
+				}
+			}()
+
+			client := testutil.SetupMockClient(t)
+
+			if client == nil {
+				t.Errorf("SetupMockClient() client = %v, want client not nil", client)
+			}
+		})
+	}
+}
+
 func TestSetupFile(t *testing.T) {
 	t.Parallel()
 

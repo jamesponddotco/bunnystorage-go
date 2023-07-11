@@ -2,6 +2,9 @@ package testutil
 
 import (
 	"fmt"
+	"net"
+	"net/http"
+	"net/http/httptest"
 	"os"
 	"testing"
 
@@ -16,6 +19,9 @@ const (
 	// ErrTestClient is returned when the test client fails to initialize.
 	ErrTestClient xerrors.Error = "failed to initialize test client"
 )
+
+// MockServerAddr is the address of the mock server.
+const MockServerAddr string = "localhost:62769"
 
 // SetupClient sets up a test client for integration tests.
 //
@@ -56,6 +62,46 @@ func SetupClient() (client *bunnystorage.Client, err error) {
 	}
 
 	return client, nil
+}
+
+// SetupMockClient sets up a mock client for mocking tests.
+func SetupMockClient(t *testing.T) *bunnystorage.Client {
+	t.Helper()
+
+	cfg := &bunnystorage.Config{
+		Application: bunnystorage.DefaultApplication(),
+		StorageZone: "mock",
+		Key:         "mock",
+		ReadOnlyKey: "mock",
+		Endpoint:    bunnystorage.EndpointLocalhost,
+		Debug:       true,
+	}
+
+	client, err := bunnystorage.NewClient(cfg)
+	if err != nil {
+		t.Fatalf("failed to initialize test client: %v", err)
+	}
+
+	return client
+}
+
+// SetupMockServer sets up a mock server for mocking tests.
+func SetupMockServer(t *testing.T) (mux *http.ServeMux, teardown func()) {
+	t.Helper()
+
+	mux = http.NewServeMux()
+	srv := httptest.NewUnstartedServer(mux)
+
+	var err error
+
+	srv.Listener, err = net.Listen("tcp", MockServerAddr)
+	if err != nil {
+		t.Fatalf("failed to listen: %v", err)
+	}
+
+	srv.Start()
+
+	return mux, srv.Close
 }
 
 // SetupFile sets up a simple text file for use in integration tests.
