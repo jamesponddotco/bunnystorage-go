@@ -1,6 +1,6 @@
 module git.sr.ht/~jamesponddotco/bunnystorage-go
 
-go 1.20
+go 1.21
 
 require (
 	git.sr.ht/~jamesponddotco/httpx-go v0.0.0-20230427215504-7c26a7f028e7
