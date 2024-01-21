@@ -8,13 +8,11 @@ import (
 	"io"
 	"log"
 	"net/http"
-	"net/http/httputil"
 	"path/filepath"
 	"strings"
 
 	"git.sr.ht/~jamesponddotco/httpx-go"
 	"git.sr.ht/~jamesponddotco/xstd-go/xerrors"
-	"git.sr.ht/~jamesponddotco/xstd-go/xnet/xhttp/xhttputil"
 	"git.sr.ht/~jamesponddotco/xstd-go/xstrings"
 	"golang.org/x/time/rate"
 )
@@ -51,8 +49,6 @@ func NewClient(cfg *Config) (*Client, error) {
 		httpc: &httpx.Client{
 			RateLimiter: rate.NewLimiter(rate.Limit(2), 1),
 			RetryPolicy: httpx.DefaultRetryPolicy(),
-			Logger:      cfg.Logger,
-			Debug:       cfg.Debug,
 		},
 		cfg: cfg,
 	}, nil
@@ -176,17 +172,6 @@ func (c *Client) do(ctx context.Context, req *http.Request) (*Response, error) {
 		}
 	}()
 
-	if c.cfg.Debug {
-		var dump []byte
-
-		dump, err = httputil.DumpResponse(ret, true)
-		if err != nil {
-			return nil, fmt.Errorf("%w", err)
-		}
-
-		c.cfg.Logger.Printf("\n%s", xhttputil.RedactSecret(dump, req.Header.Get("AccessKey")))
-	}
-
 	var buffer *bytes.Buffer
 
 	if ret.ContentLength > 0 {
@@ -226,17 +211,6 @@ func (c *Client) request(ctx context.Context, method, uri string, headers map[st
 
 	for k, v := range headers {
 		req.Header.Set(k, v)
-	}
-
-	if c.cfg.Debug {
-		var dump []byte
-
-		dump, err = httputil.DumpRequest(req, true)
-		if err != nil {
-			return nil, fmt.Errorf("%w", err)
-		}
-
-		c.cfg.Logger.Printf("\n%s", xhttputil.RedactSecret(dump, "AccessKey"))
 	}
 
 	return req, nil

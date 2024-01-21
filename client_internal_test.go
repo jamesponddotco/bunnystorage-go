@@ -16,7 +16,6 @@ func TestRequest(t *testing.T) {
 		Key:         "my-key",
 		ReadOnlyKey: "my-read-only-key",
 		Endpoint:    EndpointFalkenstein,
-		Debug:       true,
 	}
 
 	client, err := NewClient(cfg)

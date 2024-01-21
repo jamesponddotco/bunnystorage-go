@@ -2,12 +2,12 @@ package bunnystorage
 
 import (
 	"fmt"
+	"log/slog"
 	"sync"
 	"time"
 
 	"git.sr.ht/~jamesponddotco/bunnystorage-go/internal/build"
 	"git.sr.ht/~jamesponddotco/xstd-go/xerrors"
-	"git.sr.ht/~jamesponddotco/xstd-go/xlog"
 )
 
 const (
@@ -45,20 +45,15 @@ const (
 	OperationWrite
 )
 
-// Logger defines the interface for logging. It is basically a thin wrapper
-// around the standard logger which implements only a subset of the logger API.
-type Logger interface {
-	Printf(format string, v ...any)
-}
-
 // Operation represents an operation that can be performed on a Bunny.net
 // Storage API.
 type Operation int
 
 // Config holds the basic configuration for the Bunny.net Storage API.
 type Config struct {
-	// Logger is the logger to use for logging requests when debugging.
-	Logger Logger
+	// Logger is the structured logger to use for logging information about API
+	// requests and responses.
+	Logger *slog.Logger
 
 	// StorageZone is the name of the storage zone to connect to.
 	StorageZone string
@@ -87,11 +82,6 @@ type Config struct {
 	//
 	// This field is optional.
 	Timeout time.Duration
-
-	// Debug specifies whether or not to enable debug logging.
-	//
-	// This field is optional.
-	Debug bool
 
 	// mu protects Config initialization.
 	mu sync.Mutex
@@ -125,10 +115,6 @@ func (c *Config) init() {
 
 	if c.Timeout < 1 {
 		c.Timeout = DefaultTimeout
-	}
-
-	if c.Logger == nil && c.Debug {
-		c.Logger = xlog.DefaultZeroLogger
 	}
 }
 

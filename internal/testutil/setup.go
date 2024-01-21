@@ -52,7 +52,6 @@ func SetupClient() (client *bunnystorage.Client, err error) {
 		Key:         writeKey,
 		ReadOnlyKey: readKey,
 		Endpoint:    bunnystorage.EndpointFalkenstein,
-		Debug:       true,
 	}
 
 	client, err = bunnystorage.NewClient(cfg)
@@ -72,7 +71,6 @@ func SetupMockClient(t *testing.T) *bunnystorage.Client {
 		Key:         "mock",
 		ReadOnlyKey: "mock",
 		Endpoint:    bunnystorage.EndpointLocalhost,
-		Debug:       true,
 	}
 
 	client, err := bunnystorage.NewClient(cfg)
