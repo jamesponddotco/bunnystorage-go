@@ -13,7 +13,6 @@ func TestConfig_Validate(t *testing.T) {
 		{
 			name: "Valid config",
 			config: &Config{
-				Application: DefaultApplication(),
 				StorageZone: "storage-zone",
 				Key:         "api-key",
 				Endpoint:    EndpointFalkenstein,
@@ -21,41 +20,16 @@ func TestConfig_Validate(t *testing.T) {
 			expectErr: false,
 		},
 		{
-			name: "Missing application",
-			config: &Config{
-				StorageZone: "storage-zone",
-				Key:         "api-key",
-				Endpoint:    EndpointFalkenstein,
-			},
-			expectErr: true,
-		},
-		{
-			name: "Invalid application",
-			config: &Config{
-				Application: &Application{
-					Name:    "",
-					Version: "1.0.0",
-					Contact: "test@example.com",
-				},
-				StorageZone: "storage-zone",
-				Key:         "api-key",
-				Endpoint:    EndpointFalkenstein,
-			},
-			expectErr: true,
-		},
-		{
 			name: "Missing storage zone",
 			config: &Config{
-				Application: DefaultApplication(),
-				Key:         "api-key",
-				Endpoint:    EndpointFalkenstein,
+				Key:      "api-key",
+				Endpoint: EndpointFalkenstein,
 			},
 			expectErr: true,
 		},
 		{
 			name: "Missing API key",
 			config: &Config{
-				Application: DefaultApplication(),
 				StorageZone: "storage-zone",
 				Endpoint:    EndpointFalkenstein,
 			},
@@ -64,7 +38,6 @@ func TestConfig_Validate(t *testing.T) {
 		{
 			name: "Missing endpoint",
 			config: &Config{
-				Application: DefaultApplication(),
 				StorageZone: "storage-zone",
 				Key:         "api-key",
 			},
@@ -73,7 +46,6 @@ func TestConfig_Validate(t *testing.T) {
 		{
 			name: "Invalid endpoint URL",
 			config: &Config{
-				Application: DefaultApplication(),
 				StorageZone: "storage-zone",
 				Key:         "api-key",
 				Endpoint:    Endpoint(999),

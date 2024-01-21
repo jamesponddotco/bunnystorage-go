@@ -12,4 +12,7 @@ const (
 
 	// URL is the URL of the package.
 	URL string = "https://git.sr.ht/~jamesponddotco/bunnystorage-go"
+
+	// UserAgent is the user agent used by the package.
+	UserAgent string = "Mozilla/5.0 (compatible; " + Name + "/" + Version + "; +" + URL + ")"
 )

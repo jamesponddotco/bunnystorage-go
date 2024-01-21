@@ -12,11 +12,6 @@ func TestRequest(t *testing.T) {
 	t.Parallel()
 
 	cfg := &Config{
-		Application: &Application{
-			Name:    "test-app",
-			Version: "1.0.0",
-			Contact: "https://example.com",
-		},
 		StorageZone: "my-storage-zone",
 		Key:         "my-key",
 		ReadOnlyKey: "my-read-only-key",
@@ -103,8 +98,8 @@ func TestRequest(t *testing.T) {
 				}
 			}
 
-			if req.Header.Get("User-Agent") != cfg.Application.UserAgent().String() {
-				t.Errorf("expected User-Agent header %s, got %s", cfg.Application.UserAgent().String(), req.Header.Get("User-Agent"))
+			if req.Header.Get("User-Agent") != cfg.UserAgent {
+				t.Errorf("expected User-Agent header %s, got %s", cfg.UserAgent, req.Header.Get("User-Agent"))
 			}
 		})
 	}

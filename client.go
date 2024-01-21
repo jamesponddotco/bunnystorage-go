@@ -51,7 +51,6 @@ func NewClient(cfg *Config) (*Client, error) {
 		httpc: &httpx.Client{
 			RateLimiter: rate.NewLimiter(rate.Limit(2), 1),
 			RetryPolicy: httpx.DefaultRetryPolicy(),
-			UserAgent:   cfg.Application.UserAgent(),
 			Logger:      cfg.Logger,
 			Debug:       cfg.Debug,
 		},
@@ -217,7 +216,7 @@ func (c *Client) request(ctx context.Context, method, uri string, headers map[st
 	}
 
 	if _, ok := headers["User-Agent"]; !ok {
-		headers["User-Agent"] = c.cfg.Application.UserAgent().String()
+		headers["User-Agent"] = c.cfg.UserAgent
 	}
 
 	req, err := http.NewRequestWithContext(ctx, method, uri, body)

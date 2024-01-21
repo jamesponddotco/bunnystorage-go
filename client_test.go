@@ -22,9 +22,8 @@ func TestClient_NewClient(t *testing.T) {
 		wantErr    bool
 	}{
 		{
-			name: "success with default Application",
+			name: "success",
 			giveConfig: &bunnystorage.Config{
-				Application: bunnystorage.DefaultApplication(),
 				StorageZone: "my-storage-zone",
 				Key:         "my-key",
 				ReadOnlyKey: "my-read-only-key",
@@ -33,24 +32,6 @@ func TestClient_NewClient(t *testing.T) {
 				Timeout:     bunnystorage.DefaultTimeout,
 			},
 			wantErr: false,
-		},
-		{
-			name: "success with custom Application and Config",
-			giveConfig: &bunnystorage.Config{
-				Application: nil,
-				StorageZone: "my-storage-zone",
-				Key:         "my-key",
-				ReadOnlyKey: "my-read-only-key",
-				Endpoint:    bunnystorage.EndpointFalkenstein,
-			},
-			wantErr: false,
-		},
-		{
-			name: "error with default Application",
-			giveConfig: &bunnystorage.Config{
-				Application: bunnystorage.DefaultApplication(),
-			},
-			wantErr: true,
 		},
 		{
 			name:       "error with nil Config",

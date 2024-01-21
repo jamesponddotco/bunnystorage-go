@@ -48,7 +48,6 @@ func SetupClient() (client *bunnystorage.Client, err error) {
 	}
 
 	cfg := &bunnystorage.Config{
-		Application: bunnystorage.DefaultApplication(),
 		StorageZone: zone,
 		Key:         writeKey,
 		ReadOnlyKey: readKey,
@@ -69,7 +68,6 @@ func SetupMockClient(t *testing.T) *bunnystorage.Client {
 	t.Helper()
 
 	cfg := &bunnystorage.Config{
-		Application: bunnystorage.DefaultApplication(),
 		StorageZone: "mock",
 		Key:         "mock",
 		ReadOnlyKey: "mock",
