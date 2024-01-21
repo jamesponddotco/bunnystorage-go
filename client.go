@@ -1,6 +1,7 @@
 package bunnystorage
 
 import (
+	"bytes"
 	"context"
 	"encoding/json"
 	"fmt"
@@ -187,14 +188,22 @@ func (c *Client) do(ctx context.Context, req *http.Request) (*Response, error) {
 		c.cfg.Logger.Printf("\n%s", xhttputil.RedactSecret(dump, req.Header.Get("AccessKey")))
 	}
 
-	body, err := io.ReadAll(ret.Body)
+	var buffer *bytes.Buffer
+
+	if ret.ContentLength > 0 {
+		buffer = bytes.NewBuffer(make([]byte, 0, ret.ContentLength))
+	} else {
+		buffer = bytes.NewBuffer(make([]byte, 0))
+	}
+
+	_, err = io.Copy(buffer, ret.Body)
 	if err != nil {
 		return nil, fmt.Errorf("%w", err)
 	}
 
 	response := &Response{
 		Header: ret.Header.Clone(),
-		Body:   body,
+		Body:   buffer.Bytes(),
 		Status: ret.StatusCode,
 	}
 
