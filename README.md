@@ -43,11 +43,6 @@ func main() {
 
 	// Create new Config to be initialize a Client.
 	cfg := &bunnystorage.Config{
-		Application: &bunnystorage.Application{
-			Name:    "My Application",
-			Version: "1.0.0",
-			Contact: "contact@example.com",
-		},
 		StorageZone: "my-storage-zone",
 		Key:         readWriteKey,
 		ReadOnlyKey: readOnlyKey,
