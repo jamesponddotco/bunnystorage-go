@@ -19,6 +19,8 @@ func (*ErrorReader) Read(_ []byte) (n int, err error) {
 }
 
 func TestComputeSHA256(t *testing.T) {
+	t.Parallel()
+
 	fileContent := []byte("Test data for hashing.")
 
 	var (
@@ -56,7 +58,11 @@ func TestComputeSHA256(t *testing.T) {
 	}
 
 	for _, tc := range testCases {
+		tc := tc
+
 		t.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
+
 			hash, err := bunnystorage.ComputeSHA256(tc.reader)
 			if (err != nil) != tc.expectError {
 				t.Fatalf("Expected error: %v, got: %v", tc.expectError, err)

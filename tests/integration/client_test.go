@@ -113,6 +113,8 @@ func TestClient_Download(t *testing.T) {
 }
 
 func TestClient_Upload(t *testing.T) {
+	t.Parallel()
+
 	ctx := context.Background()
 
 	testFile, _, err := testutil.SetupFile(t)
