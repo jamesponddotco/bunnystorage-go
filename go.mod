@@ -4,7 +4,7 @@ go 1.21
 
 require (
 	git.sr.ht/~jamesponddotco/httpx-go v0.0.0-20230427215504-7c26a7f028e7
-	git.sr.ht/~jamesponddotco/xstd-go v0.0.0-20230709232003-22489c0e7382
+	git.sr.ht/~jamesponddotco/xstd-go v0.7.1
 	golang.org/x/time v0.3.0
 )
 

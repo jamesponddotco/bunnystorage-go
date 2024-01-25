@@ -11,10 +11,9 @@ import (
 	"path/filepath"
 	"strings"
 
-	"git.sr.ht/~jamesponddotco/httpx-go"
 	"git.sr.ht/~jamesponddotco/xstd-go/xerrors"
+	"git.sr.ht/~jamesponddotco/xstd-go/xnet/xhttp"
 	"git.sr.ht/~jamesponddotco/xstd-go/xstrings"
-	"golang.org/x/time/rate"
 )
 
 const (
@@ -26,7 +25,7 @@ type (
 	// Client is the LanguageTool API client.
 	Client struct {
 		// httpc is the underlying HTTP client used by the API client.
-		httpc *httpx.Client
+		httpc *http.Client
 
 		// cfg specifies the configuration used by the API client.
 		cfg *Config
@@ -45,12 +44,16 @@ func NewClient(cfg *Config) (*Client, error) {
 		return nil, err
 	}
 
+	retryPolicy := &xhttp.RetryPolicy{
+		IsRetryable:   xhttp.DefaultIsRetryable,
+		MaxRetries:    cfg.MaxRetries,
+		MinRetryDelay: xhttp.DefaultMinRetryDelay,
+		MaxRetryDelay: xhttp.DefaultMaxRetryDelay,
+	}
+
 	return &Client{
-		httpc: &httpx.Client{
-			RateLimiter: rate.NewLimiter(rate.Limit(2), 1),
-			RetryPolicy: httpx.DefaultRetryPolicy(),
-		},
-		cfg: cfg,
+		httpc: xhttp.NewRetryingClient(cfg.Timeout, retryPolicy, cfg.Logger),
+		cfg:   cfg,
 	}, nil
 }
 
@@ -160,14 +163,14 @@ func (c *Client) Delete(ctx context.Context, path, filename string) (*Response, 
 }
 
 // do performs an HTTP request using the underlying HTTP client.
-func (c *Client) do(ctx context.Context, req *http.Request) (*Response, error) {
-	ret, err := c.httpc.Do(ctx, req)
+func (c *Client) do(_ context.Context, req *http.Request) (*Response, error) {
+	ret, err := c.httpc.Do(req)
 	if err != nil {
 		return nil, fmt.Errorf("%w", err)
 	}
 
 	defer func() {
-		if err = httpx.DrainResponseBody(ret); err != nil {
+		if err = xhttp.DrainResponseBody(ret); err != nil {
 			log.Fatal(err)
 		}
 	}()
